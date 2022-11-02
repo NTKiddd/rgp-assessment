@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     private float horizontalInput;
     private float verticalInput;
-    private bool canJump;
+    private bool canJump = true;
 
     private Rigidbody Rb;
 
@@ -26,13 +26,17 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed * verticalInput);
         transform.Translate(Vector3.right * Time.deltaTime * movementSpeed * horizontalInput);
 
-        if (canJump)
-            playerJump();
+        playerJump();
+    }
+
+    private void FixedUpdate() 
+    {
+
     }
 
     void playerJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && canJump)
         {
             //add force and push player +y (up) 
             Rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -40,9 +44,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collider)
     {
-        if (other.gameObject.CompareTag("Floor"))
-            canJump == true;
+        if (collider.gameObject.CompareTag("Floor"))
+            canJump = true;
     }
 }
