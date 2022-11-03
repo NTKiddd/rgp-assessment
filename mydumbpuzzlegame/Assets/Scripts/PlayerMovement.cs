@@ -8,13 +8,14 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     private float horizontalInput;
     private float verticalInput;
-    private bool canJump = true;
+    public bool canJump = true;
 
     private Rigidbody Rb;
 
     void Start()
     {
         Rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -42,11 +43,5 @@ public class PlayerMovement : MonoBehaviour
             Rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             canJump = false;
         }
-    }
-
-    private void OnCollisionEnter(Collision collider)
-    {
-        if (collider.gameObject.CompareTag("Floor"))
-            canJump = true;
     }
 }
