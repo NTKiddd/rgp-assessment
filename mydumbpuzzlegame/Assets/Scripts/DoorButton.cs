@@ -5,7 +5,9 @@ using UnityEngine;
 public class DoorButton : MonoBehaviour
 {
     public float speed;
-    public Transform target;
+    public Transform startTarget;
+    public Transform endTarget;
+    public bool buttonPress = false;
 
     // Start is called before the first frame update
     void Start()
@@ -19,18 +21,33 @@ public class DoorButton : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnCollisionStay(Collision col)
     {
-        if (col.gameObject.CompareTag("Player"))
-            ButtonDown();
+        if (col.gameObject.tag == "Player")
+            buttonPressDown();
+            buttonPress = true;
     }
 
-    void ButtonDown()
+    private void OnCollisionExit(Collision coli)
     {
-        //determine endpoint for the transition
-        Vector3 pressEndPoint = target.TransformPoint(new Vector3(0, 0, 0));
+        if (coli.gameObject.tag == "Player")
+            buttonPressUp();
+            buttonPress = false;
+    }
+
+    void buttonPressDown()
+    {
+        Vector3 endPoint = endTarget.TransformPoint(new Vector3(0, 0, 0));
         
-        var step =  speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, pressEndPoint, step);
+        var step = speed * Time.deltaTime;
+        transform.position = Vector3.Lerp(transform.position, endPoint, step);
+    }
+
+    void buttonPressUp()
+    {
+        Vector3 startPoint = startTarget.TransformPoint(new Vector3(0, 0, 0));
+        
+        var step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, startPoint, step);
     }
 }

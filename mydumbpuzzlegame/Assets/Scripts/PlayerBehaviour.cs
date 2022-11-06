@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerBehaviour : MonoBehaviour
 {
     public float movementSpeed;
     public float jumpForce;
     private float horizontalInput;
     private float verticalInput;
+    public float rotationSpeed;
     public bool canJump = true;
 
+    public GameObject mainCamera;
     private Rigidbody Rb;
+    private Quaternion playerOrientation;
 
     void Start()
     {
         Rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        //Vector3 playerRotation = new Vector3(0, mainCamera.transform.rotation, 0);
     }
 
     void Update()
@@ -28,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(Vector3.right * Time.deltaTime * movementSpeed * horizontalInput);
 
         playerJump();
+
+        Quaternion playerOrientation = new Quaternion(0, mainCamera.transform.rotation.y, 0, mainCamera.transform.rotation.w);
+        transform.rotation = playerOrientation;
     }
 
     private void FixedUpdate() 

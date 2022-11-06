@@ -5,14 +5,14 @@ using UnityEngine;
 public class EnvironmentBehaviour : MonoBehaviour
 {
     private GameObject playerMesh;
-    private PlayerMovement playermovementScript;
+    private PlayerBehaviour playermovementScript;
     private List<GameObject> jumpable = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         playerMesh = GameObject.Find("PlayerMesh");
-        playermovementScript = playerMesh.GetComponent<PlayerMovement>();
+        playermovementScript = playerMesh.GetComponent<PlayerBehaviour>();
     }
 
     // Update is called once per frame
