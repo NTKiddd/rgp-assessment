@@ -1,0 +1,2 @@
+detect collision/contact point
+	https://answers.unity.com/questions/1556623/how-to-detect-collision-on-only-one-side-of-an-obj.html

@@ -5,13 +5,14 @@ using UnityEngine;
 public class CannonController : MonoBehaviour
 {
     public Rigidbody cannonBall;
-    public GameObject cannonSpawner;
     private Vector3 cannonSpawn;
+    public float shootForce;
+    public bool canShoot = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        cannonSpawn = new Vector3(cannonSpawner.transform.position.x, cannonSpawner.transform.position.y, cannonSpawner.transform.position.z);
+        
     }
 
     // Update is called once per frame
@@ -19,12 +20,18 @@ public class CannonController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            cannonShooting();
+            for (int i = 0; i < 20; i++)
+            {
+                StartCoroutine(cannonShooting());
+            }
         }
     }
 
-    void cannonShooting()
-    {
+    IEnumerator cannonShooting()
+    {   
+        yield return new WaitForSeconds(5);
         Rigidbody cannonShot = Instantiate(cannonBall, this.transform.position, this.transform.rotation);
+        cannonShot.AddRelativeForce(Vector3.right * shootForce);
+        //yield return new WaitForSeconds(10);
     }
 }
