@@ -7,31 +7,31 @@ public class CannonController : MonoBehaviour
     public Rigidbody cannonBall;
     private Vector3 cannonSpawn;
     public float shootForce;
-    public bool canShoot = false;
+    public bool canShoot = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(cannonShooting());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            for (int i = 0; i < 20; i++)
-            {
-                StartCoroutine(cannonShooting());
-            }
-        }
+        if (Input.GetKeyDown(KeyCode.R) && !canShoot)
+            canShoot = true;
+        else if (Input.GetKeyDown(KeyCode.R) && canShoot)
+            canShoot = false;
     }
 
     IEnumerator cannonShooting()
     {   
-        yield return new WaitForSeconds(5);
-        Rigidbody cannonShot = Instantiate(cannonBall, this.transform.position, this.transform.rotation);
-        cannonShot.AddRelativeForce(Vector3.right * shootForce);
-        //yield return new WaitForSeconds(10);
+        while (canShoot)
+        {
+            Rigidbody cannonShot = Instantiate(cannonBall, this.transform.position, this.transform.rotation);
+            cannonShot.AddRelativeForce(Vector3.right * shootForce);
+            Destroy(cannonShot.gameObject, 5);
+            yield return new WaitForSeconds(2.5f);
+        }
     }
 }
