@@ -25,7 +25,7 @@ public class DoorController : MonoBehaviour
         {   
             DoorOpen();
         }
-        else 
+        else if (!buttonScript.buttonPress)
         {
             DoorClose();
         }

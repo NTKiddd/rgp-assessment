@@ -23,15 +23,13 @@ public class DoorButton : MonoBehaviour
 
     private void OnCollisionStay(Collision col)
     {
-        if (col.gameObject.tag == "Player")
-            buttonPressDown();
+        if (col.gameObject.tag == "Player" || col.gameObject.tag == "Box")
             buttonPress = true;
     }
 
     private void OnCollisionExit(Collision coli)
     {
-        if (coli.gameObject.tag == "Player")
-            buttonPressUp();
+        if (coli.gameObject.tag == "Player" && coli.gameObject.tag == "Box")
             buttonPress = false;
     }
 
