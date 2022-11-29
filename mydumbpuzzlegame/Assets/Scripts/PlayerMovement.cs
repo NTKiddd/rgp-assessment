@@ -2,21 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBehaviour : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed;
     public float jumpForce;
     private float horizontalInput;
     private float verticalInput;
     public float rotationSpeed;
-    public float pickDistance;
     public bool canJump = true;
 
     public GameObject mainCamera;
-    public GameObject playerHead;
-    public GameObject crate;
-    public Transform pickUpPosition;
-    private GameObject pickUpObject;
     private Rigidbody Rb;
     private Quaternion playerOrientation;
 
@@ -39,25 +34,7 @@ public class PlayerBehaviour : MonoBehaviour
         playerJump();
 
         Quaternion playerOrientation = new Quaternion(0, mainCamera.transform.rotation.y, 0, mainCamera.transform.rotation.w);
-        transform.rotation = playerOrientation;
-        
-        Debug.DrawRay(playerHead.transform.position, mainCamera.transform.forward * pickDistance);
-        
-        //pick up object
-        if (Input.GetKey(KeyCode.E))
-        {
-            RaycastHit hit;
-            Ray pickUpRay = new Ray(playerHead.transform.position, mainCamera.transform.forward);
-            if (Physics.Raycast(pickUpRay, out hit, pickDistance));
-            {   
-                if (hit.collider.tag == "Box")
-                {
-                    //Debug.Log("hit");
-                    crate.transform.position = pickUpPosition.position;
-                    //crate.transform.position = hit.collider.transform.position;
-                }
-            }
-        } 
+        transform.rotation = playerOrientation; 
     }
 
     private void FixedUpdate() 
