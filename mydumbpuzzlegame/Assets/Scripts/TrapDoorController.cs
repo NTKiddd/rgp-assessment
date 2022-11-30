@@ -6,6 +6,7 @@ public class TrapDoorController : MonoBehaviour
 {
     public GameObject leftTrapdoorPivot;
     public GameObject rightTrapdoorPivot;
+    public GameObject trapdoorButton;
 
     // Start is called before the first frame update
     void Start()
@@ -16,20 +17,20 @@ public class TrapDoorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        
+    }
+
+    private void OnCollisionEnter(Collision other) 
+    {
+        if (other.gameObject.name == "PlayerMesh")
         {
-            leftTrapdoorOpen();
-            rightTrapdoorOpen();
+            trapdoorOpen();
         }
     }
 
-    void leftTrapdoorOpen()
+    void trapdoorOpen()
     {
         leftTrapdoorPivot.transform.eulerAngles = new Vector3 (0, 0 ,-90);
-    }
-
-    void rightTrapdoorOpen()
-    {
         rightTrapdoorPivot.transform.eulerAngles = new Vector3 (0, 0 ,90);
     }
 }
