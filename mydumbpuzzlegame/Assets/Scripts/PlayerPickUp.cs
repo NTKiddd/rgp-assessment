@@ -43,9 +43,9 @@ public class PlayerPickUp : MonoBehaviour
             if (hit.collider.tag == "Box")
             {
                 //Debug.Log("hit");
-                hit.collider.transform.position = Vector3.Lerp(crate.transform.position, pickUpPosition.position, pickUpSpeed);
-                //hit.collider.transform.rotation = pickUpPosition.rotation;
-                //crateRigidbody.useGravity = false;
+                crate.transform.position = Vector3.Lerp(crate.transform.position, pickUpPosition.position, pickUpSpeed);
+                crate.transform.rotation = pickUpPosition.rotation;
+                crateRigidbody.useGravity = false;
             }
         }      
     }
