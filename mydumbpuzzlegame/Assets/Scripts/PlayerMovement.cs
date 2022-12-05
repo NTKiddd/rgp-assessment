@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float verticalInput;
     public float rotationSpeed;
     public bool canJump = true;
+    public bool canDoubleJump = false;
 
     public GameObject mainCamera;
     private Rigidbody Rb;
@@ -28,27 +29,42 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed * verticalInput);
-        transform.Translate(Vector3.right * Time.deltaTime * movementSpeed * horizontalInput);
+        //var moveVector = new Vector3(horizontalInput, verticalInput, 0);
 
-        playerJump();
+        //Rb.MovePosition(new Vector3((transform.position.x + moveVector.x * movementSpeed * Time.deltaTime), transform.position.y + moveVector.y * movementSpeed * Time.deltaTime));
+
+        Rb.transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed * verticalInput);
+        Rb.transform.Translate(Vector3.right * Time.deltaTime * movementSpeed * horizontalInput);
 
         Quaternion playerOrientation = new Quaternion(0, mainCamera.transform.rotation.y, 0, mainCamera.transform.rotation.w);
         transform.rotation = playerOrientation; 
+
+        playerJump();
     }
 
     private void FixedUpdate() 
     {
-
+    
     }
 
     void playerJump()
     {
-        if (Input.GetKey(KeyCode.Space) && canJump)
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
             //add force and push player +y (up) 
             Rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             canJump = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collider)
+    {
+        if (!canDoubleJump)
+        {
+            if (collider.gameObject.CompareTag("Floor"))
+                canJump = true;
+            else if (collider.gameObject.CompareTag("Box"))
+                canJump = true;
         }
     }
 }

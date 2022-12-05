@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Floor
   - Box
+  - DoubleJump
+  - Portal
+  - Purple Portal
+  - Green Portal
   layers:
   - Default
   - TransparentFX

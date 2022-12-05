@@ -10,6 +10,8 @@ public class PlayerPickUp : MonoBehaviour
     public Transform pickUpPosition;
     public Rigidbody crateRigidbody;
 
+    public float distance = 2f;
+    public float height = 0.5f;
     public float pickDistance;
     public float pickUpSpeed;
 
@@ -23,7 +25,10 @@ public class PlayerPickUp : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(playerHead.transform.position, mainCamera.transform.forward * pickDistance);
-        
+    }
+
+    void FixedUpdate()
+    {
         if (Input.GetKey(KeyCode.E))
         {
             PickUp();
@@ -31,6 +36,7 @@ public class PlayerPickUp : MonoBehaviour
         else
         {
             crateRigidbody.useGravity = true;
+            crateRigidbody.drag = 0.1f;
         }
     }
 
@@ -44,10 +50,13 @@ public class PlayerPickUp : MonoBehaviour
             {
                 //Debug.Log("hit");
                 crate = hit.collider.transform.parent.gameObject;
-                crateRigidbody = hit.collider.transform.parent.gameObject.GetComponent<Rigidbody>();
-                crate.transform.position = Vector3.Lerp(crate.transform.position, pickUpPosition.position, pickUpSpeed);
+                crateRigidbody = hit.collider.transform.parent.GetComponent<Rigidbody>();
+                var moveTo = Vector3.Lerp(crate.transform.position, pickUpPosition.position, pickUpSpeed);
+                var difference = moveTo - crate.transform.position;
+                crateRigidbody.AddForce(difference * 500);
                 crate.transform.rotation = pickUpPosition.rotation;
                 crateRigidbody.useGravity = false;
+                crateRigidbody.drag = 25f;
             }
         }      
     }
