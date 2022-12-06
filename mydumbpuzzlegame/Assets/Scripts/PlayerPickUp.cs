@@ -14,6 +14,7 @@ public class PlayerPickUp : MonoBehaviour
     public float height = 0.5f;
     public float pickDistance;
     public float pickUpSpeed;
+    private bool pickUp;
 
     // Start is called before the first frame update
     void Start()

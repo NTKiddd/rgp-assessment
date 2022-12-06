@@ -1687,7 +1687,7 @@ MonoBehaviour:
   distance: 2
   height: 0.5
   pickDistance: 1.7
-  pickUpSpeed: 0.24
+  pickUpSpeed: 0.26
 --- !u!1001 &930265968
 PrefabInstance:
   m_ObjectHideFlags: 0
