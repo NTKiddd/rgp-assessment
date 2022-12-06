@@ -511,7 +511,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 431118912}
-  m_LocalRotation: {x: 0.25194678, y: 0.000000008325662, z: -0.0000000021675461, w: 0.96774113}
+  m_LocalRotation: {x: 0.25194678, y: -0.000000008325662, z: 0.0000000021675461, w: 0.96774113}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1528,7 +1528,7 @@ MonoBehaviour:
   tpOut1: {fileID: 850163926}
   tpOut2: {fileID: 738164104}
   tpOut3: {fileID: 1506813958}
-  tpOut4: {fileID: 0}
+  tpOut4: {fileID: 901052991}
   portal1: {fileID: 663081971}
   portal2: {fileID: 1333589180826646518, guid: 3efb98c15e4055446860440cb3795466, type: 3}
   portal3: {fileID: 769380680}
@@ -1537,6 +1537,11 @@ MonoBehaviour:
   portal2Collider: {fileID: 64797215962971818}
   portal4Mesh: {fileID: 354850565}
   portal4Collider: {fileID: 354850564}
+--- !u!4 &901052991 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1946553069542176035, guid: f32bb883641750c49a9640e945ba999c, type: 3}
+  m_PrefabInstance: {fileID: 957832506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &930265968
 PrefabInstance:
   m_ObjectHideFlags: 0
